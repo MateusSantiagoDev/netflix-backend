@@ -18,4 +18,9 @@ export class UserService {
     const user = { ...dto, id: randomUUID() };
     this.users.push(user);
   }
+
+  findOne(id: string) {
+    const user = this.users.find((el) => el.id === id);
+    return user;
+  }
 }
