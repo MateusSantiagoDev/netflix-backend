@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateMovieDto } from './dto/create-movie.dto';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 import { MovieEntity } from './entities/movie.entity';
 import { MovieService } from './movie.service';
 
@@ -31,6 +32,14 @@ export class MovieController {
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.service.findOne(id)
+  }
+
+  @ApiOperation({
+    summary: 'Editar um filme pelo ID'
+  })
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateMovieDto) {
+     return this.service.update(id, dto)
   }
 
 }
