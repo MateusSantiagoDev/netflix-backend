@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,7 +18,7 @@ export class UserController {
   constructor(private readonly service: UserService) {}
 
   @ApiOperation({
-     summary: "vizualizar todos os usuários"
+    summary: 'vizualizar todos os usuários',
   })
   @Get()
   findAll() {
@@ -18,26 +26,34 @@ export class UserController {
   }
 
   @ApiOperation({
-    summary: "Cadastrar um novo usuário"
+    summary: 'Cadastrar um novo usuário',
   })
   @Post()
   create(@Body() dto: CreateUserDto) {
-     return this.service.create(dto)
+    return this.service.create(dto);
   }
 
   @ApiOperation({
-    summary: "Buscar um usuário pelo ID"
+    summary: 'Buscar um usuário pelo ID',
   })
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.service.findOne(id)
+    return this.service.findOne(id);
   }
 
   @ApiOperation({
-    summary: "Editar um usuário pelo ID"
+    summary: 'Editar um usuário pelo ID',
   })
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
-    return this.service.update(id, dto)
+    return this.service.update(id, dto);
+  }
+
+  @ApiOperation({
+    summary: 'Remover um usuário pelo ID',
+  })
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    this.service.delete(id);
   }
 }

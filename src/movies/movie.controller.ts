@@ -1,11 +1,19 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { MovieEntity } from './entities/movie.entity';
 import { MovieService } from './movie.service';
 
-@ApiTags("Movies")
+@ApiTags('Movies')
 @Controller('movies')
 export class MovieController {
   constructor(private readonly service: MovieService) {}
@@ -29,25 +37,24 @@ export class MovieController {
   @ApiOperation({
     summary: 'Buscar um filme pelo ID',
   })
-  @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.service.findOne(id)
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.service.findOne(id);
   }
 
   @ApiOperation({
-    summary: 'Editar um filme pelo ID'
+    summary: 'Editar um filme pelo ID',
   })
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: UpdateMovieDto) {
-     return this.service.update(id, dto)
+    return this.service.update(id, dto);
   }
 
   @ApiOperation({
-    summary: 'remover um filme pelo ID'
+    summary: 'remover um filme pelo ID',
   })
   @Delete(':id')
   delete(@Param('id') id: string) {
-    return this.service.delete(id)
+    this.service.delete(id);
   }
-
 }

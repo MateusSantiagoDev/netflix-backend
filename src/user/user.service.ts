@@ -7,7 +7,6 @@ import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
- 
   users: UserEntity[] = [];
 
   constructor(private readonly repository: UserRepository) {}
@@ -27,13 +26,21 @@ export class UserService {
   }
 
   update(id: string, dto: UpdateUserDto) {
-   this.users.map((el, index) => {
-    if(el.id === id) {
-        const data = Object.assign(el, dto)
-        this.users.splice(index, 1, data)
-    }
-   })
-   const user = this.users.find(el => el.id === id)
-   return user;
-}
+    this.users.map((el, index) => {
+      if (el.id === id) {
+        const data = Object.assign(el, dto);
+        this.users.splice(index, 1, data);
+      }
+    });
+    const user = this.users.find((el) => el.id === id);
+    return user;
+  }
+
+  delete(id: string) {
+    const user = this.users.map((el, index) => {
+      if (el.id === id) {
+        return this.users.splice(index, 1);
+      }
+    });
+  }
 }
