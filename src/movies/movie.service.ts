@@ -21,21 +21,19 @@ export class MovieService {
     }
 
     findOne(id: string) {
-        const movie = this.movies.map( el =>{
-           if(el.id === id) {
-           return el
-           }
-        })
-        return movie
+        const movie = this.movies.find(el => el.id === id);
+        return movie;
     }  
 
     update(id: string, dto: UpdateMovieDto) {
-        const movie = this.movies.map((el, index) => {
-            if(el.id === id) {
-               return this.movies.splice(index, 1, dto)
-            }
-        })
-        return movie
+      this.movies.map((el, index) => {
+        if(el.id === id) {
+            const data = Object.assign(el, dto)
+            this.movies.splice(index, 1, data)
+        }
+      })
+      const movie = this.movies.find(el => el.id === id)
+      return movie
     }  
 
     delete(id: string) {
