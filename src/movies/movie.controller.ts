@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -40,6 +40,14 @@ export class MovieController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: UpdateMovieDto) {
      return this.service.update(id, dto)
+  }
+
+  @ApiOperation({
+    summary: 'remover um filme pelo ID'
+  })
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.service.delete(id)
   }
 
 }
