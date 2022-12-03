@@ -1,28 +1,58 @@
 <mxfile host="65bd71144e">
     <diagram id="IpsCU2ea0IRfzaH6y541" name="Page-1">
-        <mxGraphModel dx="548" dy="478" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="548" dy="372" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="movies&lt;br&gt;&lt;br&gt;id&lt;br&gt;title&lt;br&gt;description&lt;br&gt;image" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="2" value="movies&lt;br&gt;&lt;br&gt;id&lt;br&gt;title&lt;br&gt;description&lt;br&gt;image" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="40" y="216" width="90" height="100" as="geometry"/>
                 </mxCell>
-                <mxCell id="3" value="user&lt;br&gt;&lt;br&gt;id&lt;br&gt;name&lt;br&gt;cpf&lt;br&gt;password&lt;br&gt;confirmPassord&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="220" y="216" width="100" height="100" as="geometry"/>
+                <mxCell id="3" value="user&lt;br&gt;&lt;br&gt;id&lt;br&gt;name&lt;br&gt;cpf&lt;br&gt;password&lt;br&gt;confirmPassord&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="364" y="220" width="100" height="100" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="admin&lt;br&gt;&lt;br&gt;id&lt;br&gt;name&lt;br&gt;password&lt;br&gt;confirmPassword" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-                    <mxGeometry x="130" y="40" width="106" height="106" as="geometry"/>
+                <mxCell id="4" value="admin&lt;br&gt;&lt;br&gt;id&lt;br&gt;name&lt;br&gt;password&lt;br&gt;confirmPassword" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="40" width="106" height="106" as="geometry"/>
                 </mxCell>
-                <mxCell id="6" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                <mxCell id="6" value="" style="endArrow=classic;html=1;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="190" y="150" as="sourcePoint"/>
-                        <mxPoint x="260" y="210" as="targetPoint"/>
+                        <mxPoint x="310" y="120" as="sourcePoint"/>
+                        <mxPoint x="400" y="210" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="400" y="120"/>
+                        </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="7" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                <mxCell id="7" value="" style="endArrow=classic;html=1;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="170" y="150" as="sourcePoint"/>
-                        <mxPoint x="100" y="210" as="targetPoint"/>
+                        <mxPoint x="190" y="120" as="sourcePoint"/>
+                        <mxPoint x="110" y="210" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="110" y="120"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="8" style="edgeStyle=none;html=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.19;entryY=-0.03;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="3" target="3">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="netflix&lt;br&gt;&lt;br&gt;id&lt;br&gt;title&lt;br&gt;description&lt;br&gt;image&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="225" width="120" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="250" y="150" as="sourcePoint"/>
+                        <mxPoint x="250" y="220" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="360" y="280" as="sourcePoint"/>
+                        <mxPoint x="310" y="280" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="" style="endArrow=classic;html=1;exitX=1.067;exitY=0.58;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="2">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="260" y="180" as="sourcePoint"/>
+                        <mxPoint x="170" y="274" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
             </root>

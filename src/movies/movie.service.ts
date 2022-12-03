@@ -11,7 +11,7 @@ export class MovieService {
     movies: MovieEntity[] = []
     constructor(private readonly repository: MovieRepository) {}
 
-    findAll(){
+    findAll() {
         return this.movies;
     }
 
