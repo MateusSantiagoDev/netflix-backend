@@ -10,7 +10,7 @@
                 <mxCell id="3" value="user&lt;br&gt;&lt;br&gt;id&lt;br&gt;name&lt;br&gt;cpf&lt;br&gt;email&lt;br&gt;password&lt;br&gt;confirmPassord" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="364" y="220" width="100" height="120" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="admin&lt;br&gt;&lt;br&gt;id&lt;br&gt;name&lt;br&gt;password&lt;br&gt;confirmPassword" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+                <mxCell id="4" value="admin&lt;br&gt;&lt;br&gt;id&lt;br&gt;name&lt;br&gt;email&lt;br&gt;password&lt;br&gt;confirmPassword" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
                     <mxGeometry x="200" y="40" width="106" height="106" as="geometry"/>
                 </mxCell>
                 <mxCell id="6" value="" style="endArrow=classic;html=1;" parent="1" edge="1">
