@@ -5,7 +5,7 @@ import { MovieEntity } from "./entities/movie.entity";
 import { MovieRepository } from "./movie.repository";
 
 @Injectable()
-export class MovieService {      
+export class MovieService {       
     
     movies: MovieEntity[] = []
     constructor(private readonly repository: MovieRepository) {}
@@ -18,4 +18,13 @@ export class MovieService {
         const movie = { ...dto, id: randomUUID() }
         this.movies.push(movie)
     }
+
+    findOne(id: string) {
+        const movie = this.movies.map( el =>{
+           if(el.id === id) {
+           return el
+           }
+        })
+        return movie
+    }  
 }
