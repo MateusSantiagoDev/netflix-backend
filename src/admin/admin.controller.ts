@@ -12,6 +12,7 @@ import { exceptionhandling } from 'src/utils/exceptions/exceptionhandling';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateadminDto } from './dto/update-admin.dto';
+import { AdminEntity } from './entities/admin.entity';
 
 @ApiTags('Admin')
 @Controller('admin')
@@ -22,9 +23,9 @@ export class AdminController {
     summary: 'Vizualizar todos os adminitradores',
   })
   @Get()
-  findAll() {
+  async findAll(): Promise<AdminEntity[]> {
     try {
-      return this.service.findAll();
+      return await this.service.findAll();
     } catch (err) {
       exceptionhandling(err);
     }
@@ -34,9 +35,9 @@ export class AdminController {
     summary: 'Adicionar um novo administrador',
   })
   @Post()
-  create(@Body() dto: CreateAdminDto) {
+  async create(@Body() dto: CreateAdminDto): Promise<AdminEntity> {
     try {
-      return this.service.create(dto);
+      return await this.service.create(dto);
     } catch (err) {
       exceptionhandling(err);
     }
@@ -46,9 +47,9 @@ export class AdminController {
     summary: 'Buscar um administrador pelo ID',
   })
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string): Promise<AdminEntity> {
     try {
-      return this.service.findOne(id);
+      return await this.service.findOne(id);
     } catch (err) {
       exceptionhandling(err);
     }
@@ -58,9 +59,9 @@ export class AdminController {
     summary: 'Editar um administrador pelo ID',
   })
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateadminDto) {
+  async update(@Param('id') id: string, @Body() dto: UpdateadminDto): Promise<AdminEntity> {
     try {
-      return this.service.update(id, dto);
+      return await this.service.update(id, dto);
     } catch (err) {
       exceptionhandling(err);
     }
@@ -70,9 +71,9 @@ export class AdminController {
     summary: 'Remover um Administrador pelo ID',
   })
   @Delete(':id')
-  delete(@Param('id') id: string) {
+  async delete(@Param('id') id: string) {
     try {
-      this.service.delete(id);
+      await this.service.delete(id);
     } catch (err) {
       exceptionhandling(err);
     }

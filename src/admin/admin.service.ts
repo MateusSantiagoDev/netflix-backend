@@ -13,52 +13,44 @@ export class AdminService {
 
   constructor(private readonly repository: AdminRepository) {}
 
-  findAll() {
+  async findAll(): Promise<AdminEntity[]> {
     try {
-      return this.admins;
+      return await this.repository.findAll();
     } catch (err) {
       throw new Exceptions(Exception.UnprocessableEntityException);
     }
   }
 
-  create(dto: CreateAdminDto) {
+  async create(dto: CreateAdminDto): Promise<AdminEntity> {
     try {
-      const adm = { ...dto, id: randomUUID() };
-      this.admins.push(adm);
+      const adm: AdminEntity = { ...dto, id: randomUUID() };
+      return await this.repository.create(adm)
     } catch (err) {
       throw new Exceptions(Exception.InvalidData);
     }
   }
 
-  findOne(id: string) {
+  async findOne(id: string): Promise<AdminEntity> {
     try {
-      return this.admins.find((el) => el.id === id);
+      return await this.repository.findOne(id)
     } catch (err) {
       throw new Exceptions(Exception.NotFoundException);
     }
   }
 
-  update(id: string, dto: UpdateadminDto) {
+  async update(id: string, dto: UpdateadminDto): Promise<AdminEntity> {
     try {
-      this.admins.map((el, index) => {
-        if (el.id === id) {
-          const adm = Object.assign(el, dto);
-          return this.admins.splice(index, 1, adm);
-        }
-      });
-      return this.admins.find((el) => el.id === id);
+      await this.findOne(id)
+      const adm: Partial<AdminEntity> = { ...dto }
+      return await this.repository.update(id, adm)
     } catch (err) {
       throw new Exceptions(Exception.UnprocessableEntityException);
     }
   }
 
-  delete(id: string) {
+  async delete(id: string) {
     try {
-      this.admins.map((el, index) => {
-        if (el.id === id) {
-          this.admins.splice(index, 1);
-        }
-      });
+      await this.repository.delete(id)
     } catch (err) {
       throw new Exceptions(Exception.NotFoundException);
     }
