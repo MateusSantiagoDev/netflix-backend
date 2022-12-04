@@ -5,9 +5,10 @@ import { AppService } from './app.service';
 import { MovieModule } from './movies/movie.module';
 import { NetflixModule } from './netflix/netflix.module';
 import { UserModule } from './user/user.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
-  imports: [MovieModule, UserModule, AdminModule, NetflixModule],
+  imports: [MovieModule, UserModule, AdminModule, NetflixModule, PrismaModule],
   controllers: [AppController],
   providers: [AppService],
 })
