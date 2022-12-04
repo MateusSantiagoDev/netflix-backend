@@ -6,21 +6,19 @@ import { NetflixRepository } from './netflix.repository';
 
 @Injectable()
 export class NetflixService {
-  netflix: NetflixEntity[] = [];
-
   constructor(private readonly repository: NetflixRepository) {}
 
-  findAll() {
+  async findAll(): Promise<NetflixEntity[]> {
     try {
-      return this.netflix;
+      return await this.repository.findAll();
     } catch (err) {
       throw new Exceptions(Exception.UnprocessableEntityException);
     }
   }
 
-  findOne(id: string) {
+  async findOne(id: string): Promise<NetflixEntity> {
     try {
-      return this.netflix.find((el) => el.id === id);
+      return await this.repository.findOne(id);
     } catch (err) {
       throw new Exceptions(Exception.NotFoundException);
     }

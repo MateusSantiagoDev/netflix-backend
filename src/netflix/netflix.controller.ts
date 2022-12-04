@@ -1,6 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { exceptionhandling } from 'src/utils/exceptions/exceptionhandling';
+import { NetflixEntity } from './entities/netflix.entity';
 import { NetflixService } from './netflix.service';
 
 @ApiTags('Netflix')
@@ -12,9 +13,9 @@ export class NetflixController {
     summary: 'Visualizar todos os filmes',
   })
   @Get()
-  findAll() {
+  async findAll(): Promise<NetflixEntity[]> {
     try {
-      return this.service.findAll();
+      return await this.service.findAll();
     } catch (err) {
       exceptionhandling(err);
     }
@@ -24,9 +25,9 @@ export class NetflixController {
     summary: 'Buscar um filme pelo ID',
   })
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string): Promise<NetflixEntity> {
     try {
-      return this.service.findOne(id);
+      return await this.service.findOne(id);
     } catch (err) {
       exceptionhandling(err);
     }
