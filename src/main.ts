@@ -12,6 +12,7 @@ async function bootstrap() {
     .addTag('Status')
     .addTag('Movies')
     .addTag('User')
+    .addTag('Admin')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
