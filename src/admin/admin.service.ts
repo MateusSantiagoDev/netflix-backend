@@ -35,4 +35,12 @@ export class AdminService {
     const data = this.admins.find((el) => el.id === id);
     return data;
   }
+
+  delete(id: string) {
+    this.admins.map((el, index) => {
+      if (el.id === id) {
+        this.admins.splice(index, 1);
+      }
+    });
+  }
 }
