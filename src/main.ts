@@ -13,6 +13,7 @@ async function bootstrap() {
     .addTag('Movies')
     .addTag('User')
     .addTag('Admin')
+    .addTag('Netflix')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
