@@ -1,5 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { exceptionhandling } from 'src/utils/exceptions/exceptionhandling';
 import { NetflixService } from './netflix.service';
 
 @ApiTags('Netflix')
@@ -12,7 +13,11 @@ export class NetflixController {
   })
   @Get()
   findAll() {
-    return this.service.findAll();
+    try {
+      return this.service.findAll();
+    } catch (err) {
+      exceptionhandling(err);
+    }
   }
 
   @ApiOperation({
@@ -20,6 +25,10 @@ export class NetflixController {
   })
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.service.findOne(id);
+    try {
+      return this.service.findOne(id);
+    } catch (err) {
+      exceptionhandling(err);
+    }
   }
 }

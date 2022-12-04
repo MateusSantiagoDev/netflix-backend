@@ -8,6 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { exceptionhandling } from 'src/utils/exceptions/exceptionhandling';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { MovieEntity } from './entities/movie.entity';
@@ -23,7 +24,11 @@ export class MovieController {
   })
   @Get()
   findAll() {
-    return this.service.findAll();
+    try {
+      return this.service.findAll();
+    } catch (err) {
+      exceptionhandling(err);
+    }
   }
 
   @ApiOperation({
@@ -31,7 +36,11 @@ export class MovieController {
   })
   @Post()
   create(@Body() dto: CreateMovieDto) {
-    return this.service.create(dto);
+    try {
+      return this.service.create(dto);
+    } catch (err) {
+      exceptionhandling(err);
+    }
   }
 
   @ApiOperation({
@@ -39,7 +48,11 @@ export class MovieController {
   })
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.service.findOne(id);
+    try {
+      return this.service.findOne(id);
+    } catch (err) {
+      exceptionhandling(err);
+    }
   }
 
   @ApiOperation({
@@ -47,7 +60,11 @@ export class MovieController {
   })
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: UpdateMovieDto) {
-    return this.service.update(id, dto);
+    try {
+      return this.service.update(id, dto);
+    } catch (err) {
+      exceptionhandling(err);
+    }
   }
 
   @ApiOperation({
@@ -55,6 +72,10 @@ export class MovieController {
   })
   @Delete(':id')
   delete(@Param('id') id: string) {
-    this.service.delete(id);
+    try {
+      this.service.delete(id);
+    } catch (err) {
+      exceptionhandling(err);
+    }
   }
 }

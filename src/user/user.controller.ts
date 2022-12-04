@@ -8,6 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { exceptionhandling } from 'src/utils/exceptions/exceptionhandling';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
@@ -22,7 +23,11 @@ export class UserController {
   })
   @Get()
   findAll() {
-    return this.service.findAll();
+    try {
+      return this.service.findAll();
+    } catch (err) {
+      exceptionhandling(err);
+    }
   }
 
   @ApiOperation({
@@ -30,7 +35,11 @@ export class UserController {
   })
   @Post()
   create(@Body() dto: CreateUserDto) {
-    return this.service.create(dto);
+    try {
+      return this.service.create(dto);
+    } catch (err) {
+      exceptionhandling(err);
+    }
   }
 
   @ApiOperation({
@@ -38,7 +47,11 @@ export class UserController {
   })
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.service.findOne(id);
+    try {
+      return this.service.findOne(id);
+    } catch (err) {
+      exceptionhandling(err);
+    }
   }
 
   @ApiOperation({
@@ -46,7 +59,11 @@ export class UserController {
   })
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
-    return this.service.update(id, dto);
+    try {
+      return this.service.update(id, dto);
+    } catch (err) {
+      exceptionhandling(err);
+    }
   }
 
   @ApiOperation({
@@ -54,6 +71,10 @@ export class UserController {
   })
   @Delete(':id')
   delete(@Param('id') id: string) {
-    this.service.delete(id);
+    try {
+      this.service.delete(id);
+    } catch (err) {
+      exceptionhandling(err);
+    }
   }
 }

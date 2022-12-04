@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
+import { Exceptions } from 'src/utils/exceptions/exceptionClass';
+import { Exception } from 'src/utils/exceptions/exceptions';
 import { AdminRepository } from './admin.repository';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateadminDto } from './dto/update-admin.dto';
@@ -12,35 +14,53 @@ export class AdminService {
   constructor(private readonly repository: AdminRepository) {}
 
   findAll() {
-    return this.admins;
+    try {
+      return this.admins;
+    } catch (err) {
+      throw new Exceptions(Exception.UnprocessableEntityException);
+    }
   }
 
   create(dto: CreateAdminDto) {
-    const adm = { ...dto, id: randomUUID() };
-    this.admins.push(adm);
+    try {
+      const adm = { ...dto, id: randomUUID() };
+      this.admins.push(adm);
+    } catch (err) {
+      throw new Exceptions(Exception.InvalidData);
+    }
   }
 
   findOne(id: string) {
-    const adm = this.admins.find((el) => el.id === id);
-    return adm;
+    try {
+      return this.admins.find((el) => el.id === id);
+    } catch (err) {
+      throw new Exceptions(Exception.NotFoundException);
+    }
   }
 
   update(id: string, dto: UpdateadminDto) {
-    this.admins.map((el, index) => {
-      if (el.id === id) {
-        const adm = Object.assign(el, dto);
-        return this.admins.splice(index, 1, adm);
-      }
-    });
-    const data = this.admins.find((el) => el.id === id);
-    return data;
+    try {
+      this.admins.map((el, index) => {
+        if (el.id === id) {
+          const adm = Object.assign(el, dto);
+          return this.admins.splice(index, 1, adm);
+        }
+      });
+      return this.admins.find((el) => el.id === id);
+    } catch (err) {
+      throw new Exceptions(Exception.UnprocessableEntityException);
+    }
   }
 
   delete(id: string) {
-    this.admins.map((el, index) => {
-      if (el.id === id) {
-        this.admins.splice(index, 1);
-      }
-    });
+    try {
+      this.admins.map((el, index) => {
+        if (el.id === id) {
+          this.admins.splice(index, 1);
+        }
+      });
+    } catch (err) {
+      throw new Exceptions(Exception.NotFoundException);
+    }
   }
 }
