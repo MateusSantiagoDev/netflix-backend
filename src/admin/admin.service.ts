@@ -9,7 +9,6 @@ import { AdminEntity } from './entities/admin.entity';
 
 @Injectable()
 export class AdminService {
-  admins: AdminEntity[] = [];
 
   constructor(private readonly repository: AdminRepository) {}
 

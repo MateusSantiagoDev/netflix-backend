@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { Exceptions } from 'src/utils/exceptions/exceptionClass';
 import { Exception } from 'src/utils/exceptions/exceptions';
 import { CreateAdminDto } from './dto/create-admin.dto';
+import { UpdateadminDto } from './dto/update-admin.dto';
 import { AdminEntity } from './entities/admin.entity';
 
 @Injectable()

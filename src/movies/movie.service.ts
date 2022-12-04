@@ -9,55 +9,46 @@ import { MovieRepository } from './movie.repository';
 
 @Injectable()
 export class MovieService {
-  movies: MovieEntity[] = [];
   constructor(private readonly repository: MovieRepository) {}
 
-  findAll(): MovieEntity[] {
+  async findAll(): Promise<MovieEntity[]> {
     try {
-      return this.movies;
+      return await this.repository.findAll();
     } catch (err) {
       throw new Exceptions(Exception.UnprocessableEntityException);
     }
   }
 
-  create(dto: CreateMovieDto) {
+  async create(dto: CreateMovieDto): Promise<MovieEntity> {
     try {
       const movie: MovieEntity = { ...dto, id: randomUUID() };
-      this.movies.push(movie);
+      return await this.repository.create(movie);
     } catch (err) {
       throw new Exceptions(Exception.InvalidData);
     }
   }
 
-  findOne(id: string) {
+  async findOne(id: string): Promise<MovieEntity> {
     try {
-      return this.movies.find((el) => el.id === id);
+      return await this.repository.findOne(id);
     } catch (err) {
       throw new Exceptions(Exception.NotFoundException);
     }
   }
 
-  update(id: string, dto: UpdateMovieDto) {
+  async update(id: string, dto: UpdateMovieDto): Promise<MovieEntity> {
     try {
-      this.movies.map((el, index) => {
-        if (el.id === id) {
-          const data = Object.assign(el, dto);
-          this.movies.splice(index, 1, data);
-        }
-      });
-      return this.movies.find((el) => el.id === id);
+      await this.findOne(id);
+      const movie: Partial<MovieEntity> = { ...dto };
+      return await this.repository.update(id, movie);
     } catch (err) {
       throw new Exceptions(Exception.UnprocessableEntityException);
     }
   }
 
-  delete(id: string) {
+  async delete(id: string) {
     try {
-      this.movies.map((el, index) => {
-        if (el.id === id) {
-          return this.movies.splice(index, 1);
-        }
-      });
+      await this.repository.delete(id);
     } catch (err) {
       throw new Exceptions(Exception.NotFoundException);
     }
