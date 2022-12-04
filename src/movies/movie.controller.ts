@@ -23,7 +23,7 @@ export class MovieController {
     summary: 'visualizar todos os filmes',
   })
   @Get()
-  findAll() {
+  findAll(): MovieEntity[] {
     try {
       return this.service.findAll();
     } catch (err) {
@@ -37,7 +37,7 @@ export class MovieController {
   @Post()
   create(@Body() dto: CreateMovieDto) {
     try {
-      return this.service.create(dto);
+      this.service.create(dto);
     } catch (err) {
       exceptionhandling(err);
     }

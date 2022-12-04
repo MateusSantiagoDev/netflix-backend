@@ -12,7 +12,7 @@ export class MovieService {
   movies: MovieEntity[] = [];
   constructor(private readonly repository: MovieRepository) {}
 
-  findAll() {
+  findAll(): MovieEntity[] {
     try {
       return this.movies;
     } catch (err) {
@@ -22,7 +22,7 @@ export class MovieService {
 
   create(dto: CreateMovieDto) {
     try {
-      const movie = { ...dto, id: randomUUID() };
+      const movie: MovieEntity = { ...dto, id: randomUUID() };
       this.movies.push(movie);
     } catch (err) {
       throw new Exceptions(Exception.InvalidData);
