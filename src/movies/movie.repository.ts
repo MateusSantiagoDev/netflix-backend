@@ -26,13 +26,13 @@ export class MovieRepository {
 
   async findOne(id: string): Promise<MovieEntity> {
     try {
-      return await this.prisma.movies.findUnique({ where: { id } });
+      return await this.prisma.movies.findFirstOrThrow({ where: { id } });
     } catch (err) {
       throw new Exceptions(Exception.DatabaseException);
     }
   }
 
-  async update(id: string, data): Promise<MovieEntity> {
+  async update(id: string, data: Partial<MovieEntity>): Promise<MovieEntity> {
     try {
       return await this.prisma.movies.update({ where: { id }, data });
     } catch (err) {

@@ -28,13 +28,13 @@ export class AdminRepository {
 
   async findOne(id: string): Promise<AdminEntity> {
     try {
-      return await this.prisma.admin.findUnique({ where: { id } });
+      return await this.prisma.admin.findFirstOrThrow({ where: { id } });
     } catch (err) {
       throw new Exceptions(Exception.DatabaseException);
     }
   }
 
-  async update(id: string, data): Promise<AdminEntity> {
+  async update(id: string, data: Partial<AdminEntity>): Promise<AdminEntity> {
     try {
       return await this.prisma.admin.update({ where: { id }, data });
     } catch (err) {

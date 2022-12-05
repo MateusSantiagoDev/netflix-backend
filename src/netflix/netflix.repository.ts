@@ -18,7 +18,7 @@ export class NetflixRepository {
 
   async findOne(id: string): Promise<NetflixEntity> {
     try {
-      return await this.prisma.netflix.findUnique({ where: { id } });
+      return await this.prisma.netflix.findFirstOrThrow({ where: { id } });
     } catch (err) {
       throw new Exceptions(Exception.DatabaseException);
     }
