@@ -6,19 +6,29 @@ import { UserEntity } from './entities/user.entity';
 
 @Injectable()
 export class UserRepository {
+
+  private Select = {
+    id: true,
+    name: true,
+    cpf: false,
+    email: true,
+    password: false,
+  };
+
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll(): Promise<UserEntity[]> {
     try {
-      return await this.prisma.user.findMany();
+      return await this.prisma.user.findMany({ select: this.Select });
     } catch (err) {
       throw new Exceptions(Exception.DatabaseException);
     }
   }
 
-  async create(data: UserEntity): Promise<UserEntity> {
+  async create(data): Promise<UserEntity> {
     try {
-      return await this.prisma.user.create({ data });
+      
+      return await this.prisma.user.create({ data, select: this.Select });
     } catch (err) {
       throw new Exceptions(Exception.DatabaseException);
     }
@@ -26,7 +36,7 @@ export class UserRepository {
 
   async findOne(id: string): Promise<UserEntity> {
     try {
-      return await this.prisma.user.findFirstOrThrow({ where: { id } });
+      return await this.prisma.user.findFirstOrThrow({ where: { id }, select: this.Select });
     } catch (err) {
       throw new Exceptions(Exception.DatabaseException);
     }
@@ -34,7 +44,7 @@ export class UserRepository {
 
   async update(id: string, data: Partial<UserEntity>): Promise<UserEntity> {
     try {
-      return await this.prisma.user.update({ where: { id }, data });
+      return await this.prisma.user.update({ where: { id }, data, select: this.Select });
     } catch (err) {
       throw new Exceptions(Exception.DatabaseException);
     }

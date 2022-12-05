@@ -6,9 +6,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserRepository } from './user.repository';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
+ 
   constructor(private readonly repository: UserRepository) {}
 
   async findAll(): Promise<UserEntity[]> {
@@ -21,7 +23,21 @@ export class UserService {
 
   async create(dto: CreateUserDto): Promise<UserEntity> {
     try {
-      const user: UserEntity = { ...dto, id: randomUUID() };
+      if (dto.password != dto.confirmPassword || dto.password.length <= 7) {
+        throw new Exceptions(
+          Exception.InvalidData,
+          'O confirmPassword precisa ser igual ao Password e password não pode conter menos de 8 caracteres',
+        );
+      }
+
+      delete dto.confirmPassword;
+
+      const user: UserEntity = {
+        ...dto,
+        id: randomUUID(),
+        password: await bcrypt.hash(dto.password, 10),
+      };
+
       return await this.repository.create(user);
     } catch (err) {
       throw new Exceptions(Exception.InvalidData);
@@ -38,8 +54,21 @@ export class UserService {
 
   async update(id: string, dto: UpdateUserDto): Promise<UserEntity> {
     try {
+      if (dto.password) {
+        if (dto.password != dto.confirmPassword || dto.password.length <= 7) {
+          throw new Exceptions(
+            Exception.InvalidData,
+            'O confirmPassword precisa ser igual ao Password e password não pode conter menos de 8 caracteres',
+          );
+        }
+      }
+      delete dto.confirmPassword;
+
       await this.findOne(id);
       const user: Partial<UserEntity> = { ...dto };
+      if (user.password) {
+        user.password = await bcrypt.hash(user.password, 10);
+      }
       return await this.repository.update(id, user);
     } catch (err) {
       throw new Exceptions(Exception.UnprocessableEntityException);
