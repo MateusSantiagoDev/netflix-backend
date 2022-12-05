@@ -4,5 +4,5 @@ export interface UserEntity {
   cpf: string;
   email: string;
   password: string;
-  confirmpassword: string;
+  confirmPassword: string;
 }

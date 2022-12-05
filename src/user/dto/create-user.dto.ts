@@ -35,5 +35,5 @@ export class CreateUserDto {
     description: "Confirmação da senha",
     example: "secret"
   })
-  confirmpassword: string;
+  confirmPassword: string;
 }

@@ -11,6 +11,7 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { exceptionhandling } from 'src/utils/exceptions/exceptionhandling';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserEntity } from './entities/user.entity';
 import { UserService } from './user.service';
 
 @ApiTags('User')
@@ -22,9 +23,9 @@ export class UserController {
     summary: 'vizualizar todos os usuários',
   })
   @Get()
-  findAll() {
+  async findAll(): Promise<UserEntity[]> {
     try {
-      return this.service.findAll();
+      return await this.service.findAll();
     } catch (err) {
       exceptionhandling(err);
     }
@@ -34,9 +35,9 @@ export class UserController {
     summary: 'Cadastrar um novo usuário',
   })
   @Post()
-  create(@Body() dto: CreateUserDto) {
+  async create(@Body() dto: CreateUserDto): Promise<UserEntity> {
     try {
-      return this.service.create(dto);
+      return await this.service.create(dto);
     } catch (err) {
       exceptionhandling(err);
     }
@@ -46,9 +47,9 @@ export class UserController {
     summary: 'Buscar um usuário pelo ID',
   })
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string): Promise<UserEntity> {
     try {
-      return this.service.findOne(id);
+      return await this.service.findOne(id);
     } catch (err) {
       exceptionhandling(err);
     }
@@ -58,9 +59,12 @@ export class UserController {
     summary: 'Editar um usuário pelo ID',
   })
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateUserDto,
+  ): Promise<UserEntity> {
     try {
-      return this.service.update(id, dto);
+      return await this.service.update(id, dto);
     } catch (err) {
       exceptionhandling(err);
     }
@@ -70,9 +74,9 @@ export class UserController {
     summary: 'Remover um usuário pelo ID',
   })
   @Delete(':id')
-  delete(@Param('id') id: string) {
+  async delete(@Param('id') id: string) {
     try {
-      this.service.delete(id);
+      await this.service.delete(id);
     } catch (err) {
       exceptionhandling(err);
     }

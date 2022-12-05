@@ -9,56 +9,47 @@ import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
-  users: UserEntity[] = [];
-
   constructor(private readonly repository: UserRepository) {}
 
-  findAll() {
+  async findAll(): Promise<UserEntity[]> {
     try {
-      return this.users;
+      return await this.repository.findAll();
     } catch (err) {
       throw new Exceptions(Exception.UnprocessableEntityException);
     }
   }
 
-  create(dto: CreateUserDto) {
+  async create(dto: CreateUserDto): Promise<UserEntity> {
     try {
-      const user = { ...dto, id: randomUUID() };
-      this.users.push(user);
+      const user: UserEntity = { ...dto, id: randomUUID() };
+      return await this.repository.create(user);
     } catch (err) {
       throw new Exceptions(Exception.InvalidData);
     }
   }
 
-  findOne(id: string) {
+  async findOne(id: string): Promise<UserEntity> {
     try {
-      return this.users.find((el) => el.id === id);
+      return await this.repository.findOne(id);
     } catch (err) {
       throw new Exceptions(Exception.NotFoundException);
     }
   }
 
-  update(id: string, dto: UpdateUserDto) {
+  async update(id: string, dto: UpdateUserDto): Promise<UserEntity> {
     try {
-      this.users.map((el, index) => {
-        if (el.id === id) {
-          const data = Object.assign(el, dto);
-          this.users.splice(index, 1, data);
-        }
-      });
-      return this.users.find((el) => el.id === id);
+      await this.findOne(id);
+      const user: Partial<UserEntity> = { ...dto };
+      return await this.repository.update(id, user);
     } catch (err) {
       throw new Exceptions(Exception.UnprocessableEntityException);
     }
   }
 
-  delete(id: string) {
+  async delete(id: string) {
     try {
-      this.users.map((el, index) => {
-        if (el.id === id) {
-          return this.users.splice(index, 1);
-        }
-      });
+      await this.findOne(id);
+      await this.repository.delete(id);
     } catch (err) {
       throw new Exceptions(Exception.NotFoundException);
     }
