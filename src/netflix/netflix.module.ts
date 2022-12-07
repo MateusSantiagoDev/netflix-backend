@@ -1,12 +1,11 @@
-import { Module } from "@nestjs/common";
-import { PrismaModule } from "src/prisma/prisma.module";
-import { NetflixController } from "./netflix.controller";
-import { NetflixRepository } from "./netflix.repository";
-import { NetflixService } from "./netflix.service";
+import { Module } from '@nestjs/common';
+import { NetflixService } from './netflix.service';
+import { NetflixController } from './netflix.controller';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
-    imports: [PrismaModule],
-    controllers: [NetflixController],
-    providers: [NetflixService, NetflixRepository],
+  imports: [PrismaModule],
+  controllers: [NetflixController],
+  providers: [NetflixService]
 })
 export class NetflixModule {}

@@ -1,26 +1,88 @@
 import { Injectable } from '@nestjs/common';
-import { Exceptions } from 'src/utils/exceptions/exceptionClass';
-import { Exception } from 'src/utils/exceptions/exceptions';
-import { NetflixEntity } from './entities/netflix.entity';
-import { NetflixRepository } from './netflix.repository';
+import { Prisma } from '@prisma/client';
+import { randomUUID } from 'crypto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateNetflixDto } from './dto/create-netflix.dto';
 
 @Injectable()
 export class NetflixService {
-  constructor(private readonly repository: NetflixRepository) {}
-
-  async findAll(): Promise<NetflixEntity[]> {
-    try {
-      return await this.repository.findAll();
-    } catch (err) {
-      throw new Exceptions(Exception.UnprocessableEntityException);
-    }
+  constructor(private readonly prisma: PrismaService) {}
+  create(createNetflixDto: CreateNetflixDto) {
+    const data: Prisma.NetflixCreateInput = {
+      id: randomUUID(),
+      user: {
+        connect: {
+          id: createNetflixDto.userId,
+        },
+      },
+      movies: {
+        connect: {
+          id: createNetflixDto.movieId,
+        },
+      },
+    };
+    return this.prisma.netflix.create({
+      data,
+      select: {
+        id: true,
+        user: {
+          select: {
+            name: true,
+            movies: {
+              select: {
+                movies: true,
+              },
+            },
+          },
+        },
+      },
+    });
   }
 
-  async findOne(id: string): Promise<NetflixEntity> {
-    try {
-      return await this.repository.findOne(id);
-    } catch (err) {
-      throw new Exceptions(Exception.NotFoundException);
-    }
+  findAll() {
+    return this.prisma.netflix.findMany({
+      select: {
+        id: true,
+        user: {
+          select: {
+            name: true,
+            movies: {
+              select: {
+                movies: {
+                  select: {
+                    title: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
+  findOne(id: string) {
+    return this.prisma.netflix.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        user: {
+          select: {
+            name: true,
+            movies: {
+              select: {
+                movies: {
+                   select: {
+                    title: true,
+                    description: true,
+                    image: true,
+                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    });
   }
 }

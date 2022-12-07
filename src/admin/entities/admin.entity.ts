@@ -1,3 +1,4 @@
+
 export interface AdminEntity {
   id: string;
   name: string;

@@ -25,7 +25,7 @@ export class UserRepository {
     }
   }
 
-  async create(data): Promise<UserEntity> {
+  async create(data: UserEntity): Promise<UserEntity> {
     try {
       
       return await this.prisma.user.create({ data, select: this.Select });

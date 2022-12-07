@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Exceptions } from 'src/utils/exceptions/exceptionClass';
 import { Exception } from 'src/utils/exceptions/exceptions';
+import { CreateMovieDto } from './dto/create-movie.dto';
 import { MovieEntity } from './entities/movie.entity';
 
 @Injectable()

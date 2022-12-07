@@ -9,7 +9,7 @@ import { UserRepository } from './user.repository';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class UserService {
+export class UserService {  
  
   constructor(private readonly repository: UserRepository) {}
 
@@ -23,7 +23,7 @@ export class UserService {
 
   async create(dto: CreateUserDto): Promise<UserEntity> {
     try {
-      if (dto.password != dto.confirmPassword || dto.password.length <= 7) {
+      if (dto.password != dto.confirmPassword && dto.password.length <= 7) {
         throw new Exceptions(
           Exception.InvalidData,
           'O confirmPassword precisa ser igual ao Password e password não pode conter menos de 8 caracteres',
@@ -55,7 +55,7 @@ export class UserService {
   async update(id: string, dto: UpdateUserDto): Promise<UserEntity> {
     try {
       if (dto.password) {
-        if (dto.password != dto.confirmPassword || dto.password.length <= 7) {
+        if (dto.password != dto.confirmPassword && dto.password.length <= 7) {
           throw new Exceptions(
             Exception.InvalidData,
             'O confirmPassword precisa ser igual ao Password e password não pode conter menos de 8 caracteres',

@@ -1,35 +1,35 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { exceptionhandling } from 'src/utils/exceptions/exceptionhandling';
-import { NetflixEntity } from './entities/netflix.entity';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { CreateNetflixDto } from './dto/create-netflix.dto';
 import { NetflixService } from './netflix.service';
 
-@ApiTags('Netflix')
+@ApiTags("Netflix")
 @Controller('netflix')
 export class NetflixController {
-  constructor(private readonly service: NetflixService) {}
+  constructor(private readonly netflixService: NetflixService) {}
 
   @ApiOperation({
-    summary: 'Visualizar todos os filmes',
+    summary: "Adicionar um filme aos favoritos"
   })
-  @Get()
-  async findAll(): Promise<NetflixEntity[]> {
-    try {
-      return await this.service.findAll();
-    } catch (err) {
-      exceptionhandling(err);
-    }
+  @Post()
+  create(@Body() createNetflixDto: CreateNetflixDto) {
+    return this.netflixService.create(createNetflixDto);
   }
 
   @ApiOperation({
-    summary: 'Buscar um filme pelo ID',
+    summary: "Visualizar todos os filmes"
+  })
+   @Get()
+  findAll() {
+    return this.netflixService.findAll();
+  } 
+
+  @ApiOperation({
+    summary: "Buscar um filme pelo ID"
   })
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<NetflixEntity> {
-    try {
-      return await this.service.findOne(id);
-    } catch (err) {
-      exceptionhandling(err);
-    }
+  findOne(@Param('id') id: string) {
+    return this.netflixService.findOne(id);
   }
+
 }
