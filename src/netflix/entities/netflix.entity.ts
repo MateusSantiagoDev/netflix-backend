@@ -6,3 +6,5 @@ export class Netflix {
   userId?: UserEntity;
   movieId?: MovieModule;
 }
+
+
